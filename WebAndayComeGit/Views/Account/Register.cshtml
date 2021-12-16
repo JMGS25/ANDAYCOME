@@ -1,4 +1,4 @@
-﻿@model WebAndayCome.Models.RegisterViewModel
+﻿@model WebAndayCome.Models.UserViewModel
 @{
     ViewBag.Title = "Registrarse";
 }
@@ -27,6 +27,36 @@
         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.telefono, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.telefono, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.nombre, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.nombre, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ciudad, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.ciudad, ViewData["ciudad"] as SelectList, "Selecciona una ciudad")
+        </div>
+    </div>
+    @*<div class="form-group">
+        @Html.LabelFor((m => m.ciudad, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor((m => m.ciudad, ViewData["idPais"] as SelectList, "Selecciona un pais");
+        </div>
+    </div>*@
+    <div class="form-group">
+        @Html.LabelFor(m => m.foto, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.foto, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
