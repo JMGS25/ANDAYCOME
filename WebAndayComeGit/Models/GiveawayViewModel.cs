@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,6 +12,9 @@ namespace WebAndayCome.Models
         [ScaffoldColumn(false)]
         public int Id { get; set; }
 
+        [ScaffoldColumn(false)]
+        [Display(Prompt = "Clientes que participa en el sorteo", Description = "Clientes que participa en el sorteo", Name = "Clientes ")]
+        public IList< String> Clientes { get; set; }
 
         [Display(Prompt = "Premio del sorteo", Description = "Premio del sorteo", Name = "Premio ")]
         public string Premio { get; set; }
