@@ -36,24 +36,7 @@ namespace WebAndayCome.Controllers
         // GET: Giveaway/Create
         public ActionResult Create()
         {
-            try
-            {
-                IList<ClientEN> listaClientes = new ClientCEN().ReadAll(0, -1);
-                IList<SelectListItem> ClientesItems = new List<SelectListItem>();
-
-                foreach (ClientEN cli in listaClientes)
-                {
-                    ClientesItems.Add(new SelectListItem { Text = cli.Name, Value = cli.Email });
-                }
-
-                ViewData["Clientes"] = ClientesItems;
-
-                return View();
-            }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // POST: Giveaway/Create
@@ -80,30 +63,7 @@ namespace WebAndayCome.Controllers
         // GET: Giveaway/Edit/5
         public ActionResult Edit(int id)
         {
-            try
-            {
-                IList<ClientEN> listaClientes = new ClientCEN().ReadAll(0, -1);
-                IList<SelectListItem> ClientesItems = new List<SelectListItem>();
-
-                foreach (ClientEN cli in listaClientes)
-                {
-                    ClientesItems.Add(new SelectListItem { Text = cli.Name, Value = cli.Email });
-                }
-
-                ViewData["Clientes"] = ClientesItems;
-
-                GiveawayViewModel ga = null;
-                SessionInitialize();
-                GiveawayEN giveawayEN = new GiveawayCAD(session).ReadOIDDefault(id);
-                ga = new GiveawayAssembler().ConvertENToModelUI(giveawayEN);
-                SessionClose();
-
-                return View(ga);
-            }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         // POST: Giveaway/Edit/5
