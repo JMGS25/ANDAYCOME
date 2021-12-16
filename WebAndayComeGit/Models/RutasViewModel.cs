@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,12 +11,11 @@ namespace WebAndayCome.Models
         [ScaffoldColumn(false)]
         public int Id { get; set; }
 
-        [ScaffoldColumn(false)]
         [Display(Prompt = "Restaurantes de la ruta", Description = "Restaurantes que pertenecen a la ruta", Name = "Restaurantes ")]
         public IList<int> IdRestaurante { get; set; }
 
         [ScaffoldColumn(false)]
-        [Display(Prompt = "Pais en el que se encuentra la ruta", Description = "Pais en el que se encuentra la ruta", Name = "Paises ")]
+        [Display(Prompt = "Ciudad en el que se encuentra la ruta", Description = "Ciudad en el que se encuentra la ruta", Name = "Ciudad ")]
         public int IdPais { get; set; }
 
 
@@ -38,9 +37,9 @@ namespace WebAndayCome.Models
         public Nullable<DateTime> Start_date { get; set; }
 
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [Display(Prompt = "Dia en la que termina la ruta", Description = "Dia en la que termina la ruta", Name = "End_date ")]
-        [Required(ErrorMessage = "Debe indicar un dia en la que comience la ruta")]
+        [Required(ErrorMessage = "Debe indicar un dia en la que termine la ruta")]
         public Nullable<DateTime> End_date { get; set; }
 
 
