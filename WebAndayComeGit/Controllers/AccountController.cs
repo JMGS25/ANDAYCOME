@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using AndayComeGenNHibernate.CEN.AndayCome;
+using AndayComeGenNHibernate.EN.AndayCome;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -79,7 +82,17 @@ namespace WebAndayCome.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    UserCEN usu = new UserCEN();
+                    string token = usu.Login(model.Email, model.Password);
+                    if(token != null)
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Error al iniciar sesión, inténtalo de nuevo");
+                        return View(model);
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -139,6 +152,15 @@ namespace WebAndayCome.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            IList<CountryEN> listaPaises = new CountryCEN().ReadAll(0, -1);
+            IList<SelectListItem> countryitems = new List<SelectListItem>();
+
+            foreach (CountryEN country in listaPaises)
+            {
+                countryitems.Add(new SelectListItem { Text = country.City.ToString(), Value = country.Id.ToString() });
+            }
+
+            ViewData["ciudad"] = countryitems;
             return View();
         }
 
@@ -147,8 +169,10 @@ namespace WebAndayCome.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(UserViewModel model)
         {
+            
+
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
@@ -156,7 +180,9 @@ namespace WebAndayCome.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
+                    UserCEN usuCEN = new UserCEN();
+                    usuCEN.New_(model.telefono,model.foto,model.Password,model.ciudad,model.Email, AndayComeGenNHibernate.Enumerated.AndayCome.LanguageEnum.spanish, model.nombre);
                     // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
                     // Enviar correo electrónico con este vínculo
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -169,6 +195,15 @@ namespace WebAndayCome.Controllers
             }
 
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+            IList<CountryEN> listaPaises = new CountryCEN().ReadAll(0, -1);
+            IList<SelectListItem> countryitems = new List<SelectListItem>();
+
+            foreach (CountryEN country in listaPaises)
+            {
+                countryitems.Add(new SelectListItem { Text = country.City.ToString(), Value = country.Id.ToString() });
+            }
+
+            ViewData["ciudad"] = countryitems;
             return View(model);
         }
 
