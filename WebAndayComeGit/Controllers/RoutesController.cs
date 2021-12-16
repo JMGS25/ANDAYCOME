@@ -1,8 +1,10 @@
-﻿using AndayComeGenNHibernate.CAD.AndayCome;
+using AndayComeGenNHibernate.CAD.AndayCome;
 using AndayComeGenNHibernate.CEN.AndayCome;
 using AndayComeGenNHibernate.EN.AndayCome;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using WebAndayCome.Assembler;
 using WebAndayCome.Models;
@@ -62,7 +64,7 @@ namespace WebAndayCome.Controllers
 
                 foreach (CountryEN country in listaPaises)
                 {
-                    countryitems.Add(new SelectListItem { Text = country.Id.ToString() , Value = country.Id.ToString() });
+                    countryitems.Add(new SelectListItem { Text = country.City.ToString() , Value = country.Id.ToString() });
                 }
 
                 ViewData["idPais"] = countryitems;
@@ -78,14 +80,26 @@ namespace WebAndayCome.Controllers
 
         // POST: Routes/Create
         [HttpPost]
-        public ActionResult Create(RutasViewModel ruta)
+        public ActionResult Create(RutasViewModel ruta, HttpPostedFileBase file)
         {
+            string fileName = "", path = "";
+            // Verify that the user selected a file
+            if (file != null && file.ContentLength > 0)
+            {
+                // extract only the fielname
+                fileName = Path.GetFileName(file.FileName);
+                // store the file inside ~/App_Data/uploads folder
+                path = Path.Combine(Server.MapPath("~/Images/Uploads"), fileName);
+                //string pathDef = path.Replace(@"\\", @"\");
+                file.SaveAs(path);
+            }
             try
             {
                 // TODO: Add insert logic here
+                fileName = "/Images/Uploads/" + fileName;
                 RouteCEN routeCEN = new RouteCEN();
 
-                routeCEN.New_("juanma25092001@gmail.com", ruta.IdPais,ruta.IdRestaurante, ruta.Start_date, ruta.End_date, ruta.Photo, ruta.Description, ruta.Name);
+                routeCEN.New_("juanma25092001@gmail.com", ruta.IdPais,ruta.IdRestaurante, ruta.Start_date, ruta.End_date, fileName, ruta.Description, ruta.Name);
 
 
                 return RedirectToAction("Index");
@@ -130,12 +144,24 @@ namespace WebAndayCome.Controllers
 
         // POST: Routes/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, RutasViewModel ruta)
+        public ActionResult Edit(int id, RutasViewModel ruta, HttpPostedFileBase file)
         {
+            string fileName = "", path = "";
+            // Verify that the user selected a file
+            if (file != null && file.ContentLength > 0)
+            {
+                // extract only the fielname
+                fileName = Path.GetFileName(file.FileName);
+                // store the file inside ~/App_Data/uploads folder
+                path = Path.Combine(Server.MapPath("~/Images/Uploads"), fileName);
+                //string pathDef = path.Replace(@"\\", @"\");
+                file.SaveAs(path);
+            }
             try
             {
+                fileName = "/Images/Uploads/" + fileName;
                 RouteCEN cen = new RouteCEN();
-                cen.Modify(ruta.Id,ruta.Start_date,ruta.End_date,ruta.Photo,ruta.Description,ruta.Name);
+                cen.Modify(ruta.Id,ruta.Start_date,ruta.End_date,fileName,ruta.Description,ruta.Name);
 
                 return RedirectToAction("Index");
             }
