@@ -45,7 +45,7 @@
             @Html.DisplayFor(modelItem => item.End_date)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Photo)
+            <img height="140" alt="foto de la ruta" src="@Html.DisplayFor(modelItem => item.Photo)" />
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
