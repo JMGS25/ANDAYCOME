@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -16,10 +17,11 @@ using WebAndayCome.Models;
 namespace WebAndayCome.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BasicController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private object file;
 
         public AccountController()
         {
@@ -169,11 +171,22 @@ namespace WebAndayCome.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(UserViewModel model)
+        public async Task<ActionResult> Register(UserViewModel model, HttpPostedFileBase file)
         {
-            
-
-            if (ModelState.IsValid)
+            string fileName = "", path = "";
+            // Verify that the user selected a file
+            if (file != null && file.ContentLength > 0)
+            {
+                // extract only the fielname
+                fileName = Path.GetFileName(file.FileName);
+                // store the file inside ~/App_Data/uploads folder
+                path = Path.Combine(Server.MapPath("~/Images/Uploads"), fileName);
+                //string pathDef = path.Replace(@"\\", @"\");
+                file.SaveAs(path);
+            }
+            fileName = "/Images/Uploads/" + fileName;
+            model.foto = fileName;
+            try
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
@@ -182,7 +195,7 @@ namespace WebAndayCome.Controllers
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     UserCEN usuCEN = new UserCEN();
-                    usuCEN.New_(model.telefono,model.foto,model.Password,model.ciudad,model.Email, AndayComeGenNHibernate.Enumerated.AndayCome.LanguageEnum.spanish, model.nombre);
+                    usuCEN.New_(model.telefono, fileName, model.Password,model.ciudad,model.Email, AndayComeGenNHibernate.Enumerated.AndayCome.LanguageEnum.spanish, model.nombre);
                     // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
                     // Enviar correo electrónico con este vínculo
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -192,19 +205,22 @@ namespace WebAndayCome.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
+                return View(model);
             }
+            catch { 
+                            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+                IList<CountryEN> listaPaises = new CountryCEN().ReadAll(0, -1);
+                IList<SelectListItem> countryitems = new List<SelectListItem>();
 
-            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            IList<CountryEN> listaPaises = new CountryCEN().ReadAll(0, -1);
-            IList<SelectListItem> countryitems = new List<SelectListItem>();
+                foreach (CountryEN country in listaPaises)
+                {
+                    countryitems.Add(new SelectListItem { Text = country.City.ToString(), Value = country.Id.ToString() });
+                }
 
-            foreach (CountryEN country in listaPaises)
-            {
-                countryitems.Add(new SelectListItem { Text = country.City.ToString(), Value = country.Id.ToString() });
+                ViewData["ciudad"] = countryitems;
+                return View(model);
+
             }
-
-            ViewData["ciudad"] = countryitems;
-            return View(model);
         }
 
         //
