@@ -1,0 +1,29 @@
+﻿@using WebAndayCome.Models
+@model WebAndayCome.Models.RestaurantViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2> <hr />
+
+<img height="400" alt="foto de restaurante" src="@Html.DisplayFor(modelItem => Model.Photo)" />
+
+<p> <strong>Ciudad :</strong> @Model.City</p>
+
+<p> <strong>Calle : </strong>@Model.Street</p>
+
+<p> <strong>Capacidad :</strong> @Model.Capacity</p>
+
+<p> <strong>Tags :</strong> @Model.Tags</p>
+
+
+
+<h3> Menu: </h3> 
+
+<img height="400" alt="foto de restaurante" src="@Html.DisplayFor(modelItem => Model.Menu)" />
+
+<div>
+    @Html.ActionLink("Volver a la lista", "Index")
+</div>
