@@ -52,9 +52,19 @@
         </dd>
 
     </dl>
+    @foreach (var item in ViewData["restaurantes"] as IEnumerable<WebAndayCome.Models.RestaurantViewModel>)
+    {
+        <a href="/Restaurant/Details/@item.Id">
+            <hr />
+            <h4>
+                @item.Name
+            </h4>
+            <img height="140" alt="foto de restaurante" src="@item.Photo" /><br />
+        </a>
+    }
+
 </div>
 <p>
-    @Html.ActionLink("Participar", "AddClient", new { id = Model.Id }) |
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
