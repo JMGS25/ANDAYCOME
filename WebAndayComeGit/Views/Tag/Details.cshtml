@@ -1,0 +1,23 @@
+﻿@model WebAndayCome.Models.TagViewModel
+
+@{
+    ViewBag.Title = "Restaurantes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    @ViewBag.Title @Html.DisplayFor(model => model.Name)
+</h2>
+
+
+
+@foreach (var item in ViewData["restaurantes"] as IEnumerable<WebAndayCome.Models.RestaurantViewModel>)
+{
+<a href="/Restaurant/Details/@item.Id">
+    <hr />
+    <h4>
+        @item.Name
+    </h4>
+    <img height="140" alt="foto de restaurante" src="@item.Photo" /><br />
+</a>
+}

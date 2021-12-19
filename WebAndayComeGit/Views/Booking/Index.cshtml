@@ -7,7 +7,9 @@
 
 <h2>Reservas</h2>
 
-
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
         <th>
@@ -37,6 +39,8 @@
     <td>
         @Html.ActionLink("Mis reservas", "MisReservas", new { email = item.IdCliente }) |
         @Html.ActionLink("Comprobar reservas", "ComprobarReservas", new { id = item.Restaurante }) |
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
     </td>
 </tr>
 }

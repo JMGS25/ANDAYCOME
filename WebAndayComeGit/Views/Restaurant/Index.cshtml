@@ -43,7 +43,8 @@
     </td>
     <td>
         @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-        @Html.ActionLink("Detalles", "Details", new { id = item.Id }) 
+        @Html.ActionLink("Enviar email", "SendMail", new { id = item.Id }) |@*Deberia ser solo para el restaurant owner*@
+        @Html.ActionLink("Detalles", "Details", new { id = item.Id })
     </td>
 </tr>
 }
