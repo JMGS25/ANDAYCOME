@@ -1,6 +1,7 @@
-using AndayComeGenNHibernate.CAD.AndayCome;
+﻿using AndayComeGenNHibernate.CAD.AndayCome;
 using AndayComeGenNHibernate.CEN.AndayCome;
 using AndayComeGenNHibernate.EN.AndayCome;
+using AndayComeGenNHibernate.CP.AndayCome;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,7 +26,8 @@ namespace WebAndayCome.Controllers
 
             return View(rutasViewModel);
         }
-        public ActionResult PorCiudad( AndayComeGenNHibernate.Enumerated.AndayCome.CitiesEnum id)
+        //GET: Routes/PorCiudad/Alicante
+        public ActionResult PorCiudad(AndayComeGenNHibernate.Enumerated.AndayCome.CitiesEnum id)
         {
             SessionInitialize();
             RouteCAD routeCAD = new RouteCAD(session);
@@ -36,6 +38,71 @@ namespace WebAndayCome.Controllers
             SessionClose();
             return View(rutasViewModel);
         }
+        //GET: Routes/PorCliente/aaa@aaa.a
+        public ActionResult PorCliente(string email)
+        {
+            SessionInitialize();
+            RouteCAD routeCAD = new RouteCAD(session);
+            RouteCEN routeCEN = new RouteCEN(routeCAD);
+            IList<RouteEN> listRouteEn = routeCEN.FilterByClient(email);
+            IEnumerable<RutasViewModel> rutasViewModel = new RutasAssembler().ConvertListENToModel(listRouteEn).ToList();
+
+            SessionClose();
+            return View(rutasViewModel);
+        }
+
+        //GET: Routes/PorRestaurante/barpitufo
+        public ActionResult PorRestaurante(string name)
+        {
+            SessionInitialize();
+            RouteCAD routeCAD = new RouteCAD(session);
+            RouteCEN routeCEN = new RouteCEN(routeCAD);
+            IList<RouteEN> listRouteEn = routeCEN.FilterByRestaurant(name);
+            IEnumerable<RutasViewModel> rutasViewModel = new RutasAssembler().ConvertListENToModel(listRouteEn).ToList();
+
+            SessionClose();
+            return View(rutasViewModel);
+        }
+
+        //GET: Routes/PorRating/3
+        public ActionResult PorRating(int rate)
+        {
+            SessionInitialize();
+            RouteCAD routeCAD = new RouteCAD(session);
+            RouteCEN routeCEN = new RouteCEN(routeCAD);
+            IList<RouteEN> listRouteEn = routeCEN.FilterByRate(rate);
+            IEnumerable<RutasViewModel> rutasViewModel = new RutasAssembler().ConvertListENToModel(listRouteEn).ToList();
+
+            SessionClose();
+            return View(rutasViewModel);
+        }
+
+        //GET: Routes/Recent
+        public ActionResult Recent()
+        {
+            SessionInitialize();
+            RouteCAD routeCAD = new RouteCAD(session);
+            RouteCEN routeCEN = new RouteCEN(routeCAD);
+            IList<RouteEN> listRouteEn = routeCEN.FilterByRecent();
+            IEnumerable<RutasViewModel> rutasViewModel = new RutasAssembler().ConvertListENToModel(listRouteEn).ToList();
+
+            SessionClose();
+            return View(rutasViewModel);
+        }
+
+        //GET: Routes/Destacada
+        public ActionResult Destacada()
+        {
+            SessionInitialize();
+            RouteCAD routeCAD = new RouteCAD(session);
+            RouteCEN routeCEN = new RouteCEN(routeCAD);
+            IList<RouteEN> listRouteEn = routeCEN.MostrarDestacadas();
+            IEnumerable<RutasViewModel> rutasViewModel = new RutasAssembler().ConvertListENToModel(listRouteEn).ToList();
+
+            SessionClose();
+            return View(rutasViewModel);
+        }
+
 
         // GET: Routes/Details/5
         public ActionResult Details(int id)
@@ -64,7 +131,7 @@ namespace WebAndayCome.Controllers
 
                 foreach (CountryEN country in listaPaises)
                 {
-                    countryitems.Add(new SelectListItem { Text = country.City.ToString() , Value = country.Id.ToString() });
+                    countryitems.Add(new SelectListItem { Text = country.City.ToString(), Value = country.Id.ToString() });
                 }
 
                 ViewData["idPais"] = countryitems;
@@ -99,7 +166,7 @@ namespace WebAndayCome.Controllers
                 fileName = "/Images/Uploads/" + fileName;
                 RouteCEN routeCEN = new RouteCEN();
 
-                routeCEN.New_("juanma25092001@gmail.com", ruta.IdPais,ruta.IdRestaurante, ruta.Start_date, ruta.End_date, fileName, ruta.Description, ruta.Name);
+                routeCEN.New_("juanma25092001@gmail.com", ruta.IdPais, ruta.IdRestaurante, ruta.Start_date, ruta.End_date, fileName, ruta.Description, ruta.Name);
 
 
                 return RedirectToAction("Index");
@@ -109,6 +176,45 @@ namespace WebAndayCome.Controllers
                 return View();
             }
         }
+
+
+        // GET: Routes/AddClient/idruta
+        public ActionResult AddClient(int id)
+        {
+            RutasViewModel rvm = null;
+            SessionInitialize();
+            RouteEN routeEN = new RouteCAD(session).ReadOIDDefault(id);
+            rvm = new RutasAssembler().ConvertENToModelUI(routeEN);
+            SessionClose();
+
+            return View(rvm);
+        }
+
+        // POST: Routes/AddClient/idruta
+        [HttpPost]
+        public ActionResult AddClient(RestaurantViewModel res)
+        {
+            try
+            {
+
+                RouteCP routeCP = new RouteCP(session);
+                RouteCEN RouteCEN = new RouteCEN();
+                RouteEN routeEN = RouteCEN.ReadOID(res.Id);
+
+                IList<string> clientes = new List<string>();
+                clientes.Add(Request.Form["email"]);
+                routeCP.AddClient(routeEN.Id, clientes, int.Parse(Request.Form["guests"]), int.Parse(Request.Form["horario"]));
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+
 
         // GET: Routes/Edit/5
         public ActionResult Edit(int id)
@@ -127,7 +233,7 @@ namespace WebAndayCome.Controllers
 
             foreach (CountryEN country in listaPaises)
             {
-                countryitems.Add(new SelectListItem { Text = country.Id.ToString(), Value = country.Id.ToString() });
+                countryitems.Add(new SelectListItem { Text = country.City.ToString(), Value = country.Id.ToString() });
             }
 
             ViewData["idPais"] = countryitems;
@@ -161,7 +267,7 @@ namespace WebAndayCome.Controllers
             {
                 fileName = "/Images/Uploads/" + fileName;
                 RouteCEN cen = new RouteCEN();
-                cen.Modify(ruta.Id,ruta.Start_date,ruta.End_date,fileName,ruta.Description,ruta.Name);
+                cen.Modify(ruta.Id, ruta.Start_date, ruta.End_date, fileName, ruta.Description, ruta.Name);
 
                 return RedirectToAction("Index");
             }
