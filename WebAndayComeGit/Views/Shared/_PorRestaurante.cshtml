@@ -1,0 +1,98 @@
+﻿@model IEnumerable<WebAndayCome.Models.RutasViewModel>
+
+<h2>Rutas por restaurante</h2>
+<hr />
+
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <article>
+                    <h3 title="@Html.DisplayFor(modelItem => item.Name)"> @Html.DisplayFor(modelItem => item.Name) </h3>
+
+                    <img class="img" alt="foto de ruta" src="@Html.DisplayFor(modelItem => item.Photo)" />
+
+                    <p>
+                        Dirección: @Html.DisplayFor(modelItem => item.Description)
+                    </p>
+                    <p>
+                        @if (Session["Usuario"] != null)
+                        {
+                            if (item.Creator.Equals(ViewData["yo"]))
+                            {
+                            <p>
+                                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "otros" }) |
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id }, new { @class = "otros" })
+                            </p>
+                        }
+                    }
+                        @Html.ActionLink("| Detalles", "Details", new { id = item.Id }, new { @class = "otros" })
+                        </p>
+                    </article>
+                </div>
+            }
+    </div>
+</div>
+
+
+
+<style>
+    .crear {
+        color: #61C2E2;
+    }
+
+        .crear:hover {
+            color: #61DBE2;
+        }
+
+    .otros {
+        color: #A8DADC;
+    }
+
+        .otros:hover {
+            color: #CEDADC;
+        }
+
+    .row {
+        background-color: #457B9D;
+        border-radius: .5em;
+    }
+
+    .img {
+        height: 140px;
+        margin: .3em
+    }
+
+        .img:hover {
+            transform: scale(1.15);
+        }
+
+    h3, p {
+        text-align: left;
+        padding: 1em;
+        margin: 0;
+    }
+
+    h3 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: black;
+    }
+
+    p {
+        padding: .5em 0 0 0;
+        color: #F1FAEE;
+    }
+
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+</style>
+
