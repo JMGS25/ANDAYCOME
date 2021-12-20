@@ -8,9 +8,14 @@
 <h2>@ViewBag.Title</h2>
 <hr />
 
-<p>
-    @Html.ActionLink("Añadir restaurante", "Create", new { @class = "crear" })
-</p>
+<div class="" style="background-color:#F1FAEE;">
+
+    <button class="boton">
+        @Html.ActionLink("Añadir restaurante", "Create", "Routes", htmlAttributes: new { style = "color: #1D3557" })
+    </button>
+
+</div>
+<br />
 <div class="container-fluid">
     <div class="row">
         @foreach (var item in Model)
@@ -37,14 +42,15 @@
 </div>
 
 <style>
-    .crear {
-        color: #61C2E2;
+    .boton {
+        background-color: #61C2E2;
+        border-radius: .2em;
+        border-color: #61C2E2
     }
 
-        .crear:hover {
-            color: #61DBE2;
+        .boton:hover {
+            background-color: #61DBE2;
         }
-
     .otros {
         color: #A8DADC;
     }
@@ -84,12 +90,13 @@
         padding: .5em 0 0 0;
         color: #F1FAEE;
     }
-    hr{
-        display:block;
-        height:1px;
-        border:0;
-        border-top:1px solid #ccc;
+
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
         margin: 1em 0;
-        padding:0;
+        padding: 0;
     }
 </style>
