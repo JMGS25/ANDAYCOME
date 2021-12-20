@@ -1,32 +1,42 @@
-﻿@using WebAndayCome.Models
-@model WebAndayCome.Models.RestaurantViewModel
+﻿@model WebAndayCome.Models.RestaurantViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalle";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Name</h2>
+<h2 style="color:#E63946;">@Model.Name</h2>
 <hr />
 
-<img height="400" alt="foto de restaurante" src="@Html.DisplayFor(modelItem => Model.Photo)" />
+<section style="background-color: #457B9D; display: flex;">
+    <div>
+        <img class="img" height="200" alt="foto de restaurante" src="@Html.DisplayFor(modelItem => Model.Photo)" />
+    </div>
+    <div style="margin:1em; ">
+        <p> <strong>Ciudad :</strong> @Model.City</p>
 
-<p> <strong>Ciudad :</strong> @Model.City</p>
+        <p> <strong>Calle : </strong>@Model.Street</p>
 
-<p> <strong>Calle : </strong>@Model.Street</p>
+        <p> <strong>Capacidad :</strong> @Model.Capacity</p>
 
-<p> <strong>Capacidad :</strong> @Model.Capacity</p>
+        <p> <strong>Tags :</strong> @Model.Tags</p>
+    </div>
 
-<p> <strong>Tags :</strong> <a href="/Tag"> @Model.Tags </a></p>
+</section>
 
+<h2 style="color: #1D3557;"> Menú: </h2>
+<hr />
+<section style="background-color: #E63946;">
 
+    <div style="text-align:center;">
+        <img class="img" height="300" alt="foto de restaurante" src="@Html.DisplayFor(modelItem => Model.Menu)" />
+    </div>
+</section>
 
-<h3> Menu: </h3>
+<br>
+<br>
+<p style="color: #1D3557;">¿Quieres recibir mensajes de este restaurante?</p>
 
-<img height="400" alt="foto de restaurante" src="@Html.DisplayFor(modelItem => Model.Menu)" />
-
-<br><br>
-<p>¿Quieres recibir mensajes de este restaurante?</p>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -38,7 +48,46 @@
 }
 
 <div>
-    @Html.ActionLink("Volver a la lista", "Index")
+    @Html.ActionLink("Volver a la lista", "Index", new { @class = "volver" })
 </div>
 
 
+<style>
+    section {
+        border-radius: .5em;
+    }
+
+    .volver {
+        background-color: #61C2E2;
+    }
+
+        .volver:hover {
+            background-color: #61DBE2;
+        }
+
+    .img {
+        margin: 1em;
+    }
+
+        .img:hover {
+            transform: scale(1.5);
+        }
+
+    p > strong {
+        font-size: 1.2em;
+        color: black;
+    }
+
+    p {
+        color: #F1FAEE;
+    }
+
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+</style>
