@@ -17,18 +17,6 @@
     </section>
 
 
-    
-    foreach (var itemrest in ViewData["restaurantes"] as IEnumerable<WebAndayCome.Models.RestaurantViewModel>)
-    {
-        <a href="/Restaurant/Details/@itemrest.Id">
-            <hr />
-            <h4>
-                @itemrest.Name
-            </h4>
-            <img height="140" alt="foto de restaurante" src="@itemrest.Photo" /><br />
-        </a>
-    }
-
 }
 
 <style>
