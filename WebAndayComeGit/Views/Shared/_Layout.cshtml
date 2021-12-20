@@ -1,7 +1,22 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+@using AndayComeGenNHibernate.EN.AndayCome;
+@{
+    ClientEN cli = new ClientEN();
+
+    int nombreusu = 1;
+    if (Session["Usuario"] != null)
+    {
+        if (Object.ReferenceEquals(Session["Usuario"].GetType(), cli.GetType()))
+        {
+            nombreusu = 0;
+        }
+    }
+}
+
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Anda&Come </title>
@@ -44,8 +59,13 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Inicio", "Index", "Home", null, new { id = "OT", style = "color: #1D3557; font-weight: bold;" })</li>
-                    <li>@Html.ActionLink("Rutas", "Index", "Routes", null, new { id = "OT", style = "color: #1D3557" })</li>
-                    <li>@Html.ActionLink("Sorteo", "Index", "Giveaway", null, new { id = "OT", style = "color: #1D3557" })</li>
+                    @{ if (nombreusu == 0)
+                        {
+                            <li>@Html.ActionLink("Rutas", "Index", "Routes", null, new { id = "OT", style = "color: #1D3557" })</li>
+                            <li>@Html.ActionLink("Tickets", "Canjear", "Client", null, new { id = "OT", style = "color: #1D3557" })</li>
+                            <li>@Html.ActionLink("Sorteos", "Index", "Giveaway", null, new { id = "OT", style = "color: #1D3557" })</li>
+
+                        }}
                     <li>@Html.ActionLink("Contacto", "Contact", "Home", null, new { id = "OT", style = "color: #1D3557" })</li>
                 </ul>
             </div>
