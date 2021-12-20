@@ -1,0 +1,58 @@
+﻿@model WebAndayCome.Models.ClientViewModel
+
+@{
+    ViewBag.Title = "RespuestaCanjear";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-12">
+    <h2>Ya tienes @(Model.Tickets) tickets</h2>
+
+</div>
+
+<div class="caja">
+    <div class="col-md-3"></div>
+    <div class="col-md-2">
+        @Html.ActionLink("Inicio", "Index", "Home")
+    </div>
+    <div class=" col-md-1"></div>
+    <div class=" col-md-1"></div>
+    <div class="col-md-2">
+        @Html.ActionLink("Participa en Sorteos", "Index", "Giveaway")
+    </div>
+    <div class="col-md-3"></div>
+</div>
+<br />
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+<style>
+    .form-group {
+        display: block;
+        text-align: center;
+        margin: 20px;
+    }
+
+    .col-md-2 {
+        background-color: #61C2E2;
+        border-radius: .2em;
+        border-color: #61C2E2;
+        text-align:center;
+
+        padding: .3em;
+        margin-bottom:2em;
+    }
+
+    .caja{
+        text-align:center;
+    }
+    .col-md-12{
+        text-align:center;
+        margin-bottom:1em;
+    }
+        .col-md-6:hover {
+            background-color: #61DBE2;
+        }
+
+</style>
