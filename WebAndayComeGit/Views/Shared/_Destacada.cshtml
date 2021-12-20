@@ -1,20 +1,29 @@
 ﻿@model IEnumerable<WebAndayCome.Models.RutasViewModel>
 
-
+<h2>Rutas destacada</h2>
+<hr />
 @foreach (var item in Model)
 {
 
-    <section style="background-color: #457B9D; display: flex;">
-        <div>
-            <img class="img" height="200" alt="foto de ruta" src="@Html.DisplayFor(modelItem => item.Photo)" />
-        </div>
-        <div style="margin:1em; ">
-            <p><strong>@Html.DisplayFor(modelItem => item.Name)</strong></p>
+<section style="background-color: #457B9D; display: flex;">
+    <div>
+        <img class="img" height="200" alt="foto de ruta" src="@Html.DisplayFor(modelItem => item.Photo)" />
+    </div>
+    <div style="margin:1em; ">
+        <p><strong>@Html.DisplayFor(modelItem => item.Name)</strong></p>
+        <p>
+            @Html.DisplayFor(modelItem => item.Description)
+        </p>
+        <p>
+            @Html.ActionLink("| Detalles", "Details", new { id = item.Id }, new { @class = "otros" })
+        </p>
+    </div>
+    <div>
+       
+    </div>
 
-            <p>@Html.DisplayFor(modelItem => item.Description)</p>
-        </div>
 
-    </section>
+</section>
 
 
 }
