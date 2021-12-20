@@ -1,108 +1,150 @@
 ﻿@model WebAndayCome.Models.RestaurantViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Añade un Restaurante";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<style>
+    .titulo {
+        font-size: 20px;
+        font-family: Arial;
+        font-weight: bold;
+        font-style: italic;
+        color: #1D3557;
+    }
 
+    .informacion {
+        font-size: 14px;
+        font-family: Arial;
+        color: #1D3557;
+    }
 
-@using (Html.BeginForm("Create", "Restaurant", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    .fondoSeccion {
+        display: grid;
+        justify-content: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
+
+    .infoInput {
+        margin-left: 2em;
+        width: 20em;
+    }
+
+    .botonAcep {
+        margin-left: 17.5em;
+        font-size: 14px;
+        font-family: Arial;
+        background-color: #61C2E2;
+        color: #1D3557;
+    }
+
+    .dropDownList {
+        background-color: #457B9D;
+        border-radius: .5em;
+        color: #F1FAEE;
+    }
+
+    .volverCSS {
+        font-size: 14px;
+        font-family: Arial;
+        background-color: #61C2E2;
+        color: #1D3557;
+        border-radius: 1em;
+        margin-top: 1em;
+        margin-left: 1em;
+    }
+</style>
+
+<h2 class="titulo">@ViewBag.Title</h2>
+<h4 class="informacion">Rellena los campos necesarios para añadir un restaurante.</h4>
+<hr />
+
+@using (Html.BeginForm("Create", "Restaurant", FormMethod.Post, new { style = "background-color: #A8DADC; border-radius: .5em;", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>RestaurantViewModel</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @*<div class="form-group">
-        @Html.LabelFor(model => model.Menu, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Menu, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Menu, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div>
+            <button class="volverCSS">
+                @Html.ActionLink("Volver", "Index")
+            </button>
         </div>
-    </div>*@
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Menu, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="file" class="form-control" id="file2" name="file2" />
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdPropietario, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.IdPropietario, ViewData["idPropietario"] as SelectList, "Selecciona un propietario")
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdPais, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.IdPais, ViewData["idPais"] as SelectList, "Selecciona una Ciudad")
-        </div>
-    </div>
-
-    @*<div class="form-group">
-            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+        <div class="fondoSeccion form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Menu, htmlAttributes: new { @class = "informacion control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" style="background-color: #F1FAEE;" class="infoInput form-control" id="file2" name="file2" />
+                </div>
             </div>
-        </div>*@
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="file" class="form-control" id="file" name="file" />
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdPais, htmlAttributes: new { @class = "informacion control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.IdPais, ViewData["idPais"] as SelectList, "Selecciona una Ciudad", new { @class = "infoInput dropDownList" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Photo, htmlAttributes: new { @class = "informacion control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" style="background-color: #F1FAEE;" class="infoInput form-control" id="file" name="file" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "informacion control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "infoInput form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "informacion control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "infoInput form-control" } })
+                    @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "informacion control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "infoInput form-control" } })
+                    @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdTags, htmlAttributes: new { @class = "informacion control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.SelectedOptions, Model.IdTags, "Selecciona un restaurante", new { @class = "infoInput dropDownList" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Crear" class="botonAcep btn btn-default" />
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Tags, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.Tags, ViewData["Tags"] as SelectList, "Selecciona un Tag")
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
