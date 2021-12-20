@@ -3,77 +3,130 @@
     ViewBag.Title = "Registrarse";
 }
 
-<h2>@ViewBag.Title.</h2>
+<style>
+    .titulo {
+        font-size: 20px;
+        font-family: Arial;
+        font-weight: bold;
+        font-style: italic;
+        color: #1D3557;
+    }
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    .informacion {
+        font-size: 14px;
+        font-family: Arial;
+        color: #1D3557;
+    }
+
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    .fondoSeccion {
+        display: grid;
+        justify-content: center;
+        border-radius: .5em;
+        padding-top: 1em;
+        background-color: #A8DADC;
+        padding-bottom: 1em;
+    }
+
+    .infoInput {
+        margin-left: 2em;
+        width: 20em;
+    }
+
+    .infoInput2 {
+        margin-left: 2em;
+        width: 10%;
+        height: 20px;
+    }
+
+    .botonAcep {
+        margin-left: 15em;
+        font-size: 14px;
+        font-family: Arial;
+        background-color: #61C2E2;
+        color: #1D3557;
+    }
+
+    .dropDownList {
+        background-color: #457B9D;
+        border-radius: .5em;
+        color: #F1FAEE;
+    }
+</style>
+
+<h2 class="titulo">@ViewBag.Title</h2>
+<h4 class="informacion">Crea tu cuenta de Anda&Come.</h4>
+<hr />
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new {@class = "fondoSeccion form-horizontal", role = "form" }))
 {
-    @Html.AntiForgeryToken()
-    <h4>Cree una cuenta nueva.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.telefono, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.telefono, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.nombre, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.nombre, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ciudad, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.ciudad, ViewData["ciudad"] as SelectList, "Selecciona una ciudad")
-        </div>
-    </div>
-    @*<div class="form-group">
-                @Html.LabelFor((m => m.ciudad, new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor((m => m.ciudad, ViewData["idPais"] as SelectList, "Selecciona un pais");
-                </div>
-            </div>
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(m => m.foto, new { @class = "col-md-2 control-label" })
+            @Html.LabelFor(m => m.Email, new { @class = "informacion col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.TextBoxFor(m => m.foto, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "infoInput form-control" })
             </div>
-        </div>*@
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "informacion col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Password, new { @class = "infoInput form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "informacion col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "infoInput form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.telefono, new { @class = "informacion col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.telefono, new { @class = "infoInput form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.nombre, new { @class = "informacion col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.nombre, new { @class = "infoInput form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ciudad, new { @class = "informacion col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.ciudad, ViewData["ciudad"] as SelectList, "Selecciona una ciudad", new { @class = "infoInput dropDownList" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.foto, new { @class = "informacion col-md-2 control-label" })
+            <div class="col-md-10">
+                <input type="file" style="background-color: #F1FAEE;" class="infoInput form-control" id="file" name="file" />
+            </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.foto, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            <input type="file" class="form-control" id="file" name="file" />
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.type, new { @class = "informacion col-md-2 control-label" })
+            <div class="infoInput2 col-md-10">
+                @Html.CheckBoxFor(m => m.type, new { @class = "form-control" })
+            </div>
+
         </div>
 
-    </div>
 
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Registrarse" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="botonAcep btn btn-default" value="Registrarse" />
+            </div>
         </div>
-    </div>
 }
 
 @section Scripts {
