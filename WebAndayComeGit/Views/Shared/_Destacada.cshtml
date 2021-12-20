@@ -1,0 +1,64 @@
+﻿@model IEnumerable<WebAndayCome.Models.RutasViewModel>
+
+
+@foreach (var item in Model)
+{
+
+    <section style="background-color: #457B9D; display: flex;">
+        <div>
+            <img class="img" height="200" alt="foto de ruta" src="@Html.DisplayFor(modelItem => item.Photo)" />
+        </div>
+        <div style="margin:1em; ">
+            <p><strong>@Html.DisplayFor(modelItem => item.Name)</strong></p>
+
+            <p>@Html.DisplayFor(modelItem => item.Description)</p>
+        </div>
+
+    </section>
+
+
+    
+    foreach (var itemrest in ViewData["restaurantes"] as IEnumerable<WebAndayCome.Models.RestaurantViewModel>)
+    {
+        <a href="/Restaurant/Details/@itemrest.Id">
+            <hr />
+            <h4>
+                @itemrest.Name
+            </h4>
+            <img height="140" alt="foto de restaurante" src="@itemrest.Photo" /><br />
+        </a>
+    }
+
+}
+
+<style>
+    section {
+        border-radius: .5em;
+    }
+
+    .img {
+        margin: 1em;
+    }
+
+        .img:hover {
+            transform: scale(1.5);
+        }
+
+    p > strong {
+        font-size: 1.2em;
+        color: black;
+    }
+
+    p {
+        color: #F1FAEE;
+    }
+
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+</style>
