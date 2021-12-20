@@ -1,66 +1,137 @@
 ﻿@model WebAndayCome.Models.RutasViewModel
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Eliminar Ruta";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Eliminar</h2>
-
-<h3>¿Seguro que quieres eliminar esta ruta?</h3>
-<div>
-    <h4>RutasViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Start_date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Start_date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.End_date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.End_date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Photo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Photo)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+<style>
+    .titulo {
+        font-size: 20px;
+        font-family: Arial;
+        font-weight: bold;
+        font-style: italic;
+        color: #1D3557;
     }
+
+    .informacion {
+        font-size: 14px;
+        font-family: Arial;
+        color: #1D3557;
+    }
+
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    .fondoSeccion {
+        border-radius: .5em;
+        background-color: #457B9D;
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
+
+    .botonEli {
+        margin-left: 60em;
+        margin-bottom:2em;
+        font-size: 14px;
+        font-family: Arial;
+        background-color: #E63946;
+        color: #F1FAEE;
+    }
+
+    .volverCSS {
+        font-size: 14px;
+        font-family: Arial;
+        background-color: #61C2E2;
+        color: #1D3557;
+        border-radius: 1em;
+        margin-left: 1em;
+    }
+</style>
+
+<style>
+    .imgRut {
+        height: 140px;
+        margin: .3em
+    }
+        .imgRut:hover {
+            transform: scale(1.15);
+        }
+
+    .pInfo {
+        margin-left:1em;
+        display: inline;
+        color: #F1FAEE;
+    }
+
+    .variosDivs {
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+    }
+</style>
+
+<h2 class="titulo">@ViewBag.Title</h2>
+<h4 class="informacion">¿Seguro que quieres eliminar esta ruta?</h4>
+<hr />
+<div class="fondoSeccion">
+    <div>
+        <button class="volverCSS">
+            @Html.ActionLink("Volver", "Index")
+        </button>
+    </div>
+
+    <section style="padding-left: 8em;" class="dl-horizontal">
+        <div style="padding: 5em;" class="variosDivs">
+            <p class="pInfo">
+                <img style="width: 200px; height:150px;" class="imgRut" alt="Foto de la ruta" src="@Html.DisplayFor(model => model.Photo)" />
+            </p>
+        </div>
+        <div style="text-align:left;padding-left:5em;" class="variosDivs">
+            <label class="informacion">
+                @Html.DisplayNameFor(model => model.Name)
+            </label>
+            <p class="pInfo">
+                @Html.DisplayFor(model => model.Name)
+            </p>
+            <br />
+
+            <label class="informacion">
+                @Html.DisplayNameFor(model => model.Description)
+            </label>
+            <p class="pInfo">
+                @Html.DisplayFor(model => model.Description)
+            </p>
+            <br />
+
+            <label class="informacion">
+                @Html.DisplayNameFor(model => model.Start_date)
+            </label>
+            <p class="pInfo">
+                @Html.DisplayFor(model => model.Start_date)
+            </p>
+            <br />
+
+            <label class="informacion">
+                @Html.DisplayNameFor(model => model.End_date)
+            </label>
+            <p class="pInfo">
+                @Html.DisplayFor(model => model.End_date)
+            </p>
+        </div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <input type="submit" value="Eliminar" class="botonEli btn btn-default" />
+            </div>
+        }
+    </section>
 </div>
