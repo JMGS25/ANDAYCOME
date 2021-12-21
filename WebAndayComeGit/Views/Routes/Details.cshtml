@@ -6,129 +6,130 @@
 }
 
 <h2>Detalles de la ruta</h2>
+<hr />
 
-<div>
-    <hr />
-    
+<section style="background-color: #457B9D; display: flex; padding:1em;">
+    <div>
+        <img class="img" height="200" alt="foto de ruta" src="@Html.DisplayFor(model => model.Photo)" />
+    </div>
+    <div style="margin:1em; ">
+        <p><strong>@Html.DisplayFor(model => model.Name)</strong></p>
+        <p>@Html.DisplayFor(model => model.Creator)</p>
 
-
-        <section style="background-color: #457B9D; display: flex; padding:1em;">
-            <div>
-                <img class="img" height="200" alt="foto de ruta" src="@Html.DisplayFor(model => model.Photo)" />
-            </div>
-            <div style="margin:1em; ">
-                <p><strong>@Html.DisplayFor(model => model.Name)</strong></p>
-                <p>@Html.DisplayFor(model => model.Creator)</p>
-
-                <p>@Html.DisplayFor(model => model.Description)</p>
-                <p>@Html.DisplayFor(model => model.Start_date) - @Html.DisplayFor(model => model.End_date)</p>
-                <br />
-                    <button class="boton">
-                        @Html.ActionLink("Participar", "AddClient", "Routes", htmlAttributes: new { style = "color: #1D3557" })
-                    </button>
-               
-
-        </section>
-
-
-        <section>
-            @foreach (var itemrest in ViewData["restaurantes"] as IEnumerable<WebAndayCome.Models.RestaurantViewModel>
-        )
-            {
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                    <article>
-                        <a href="/Restaurant/Details/@itemrest.Id">
-                            <h3>
-                                @itemrest.Name
-                            </h3>
-                            <img height="140" alt="foto de restaurante" src="@itemrest.Photo" /><br />
-                        </a>
-                    </article>
-                </div>
-            }
-        </section>
+        <p>@Html.DisplayFor(model => model.Description)</p>
+        <p>@Html.DisplayFor(model => model.Start_date) - @Html.DisplayFor(model => model.End_date)</p>
         <br />
-        <section style="display:block;">
-            <div>
-                @if (Session["Usuario"] != null)
-                {
-                    Html.RenderAction("_Valorar", "Routes");
-                    Html.RenderAction("_Comment", "Routes");
-                }
-                @{Html.RenderAction("_PorRuta", "Comment", new { Model.Id });}
-            </div>
-        </sectionstyle="display:block;">
+        <button class="boton">
+            @Html.ActionLink("Participar", "AddClient", "Routes", htmlAttributes: new { style = "color: #1D3557" })
+        </button>
+    </div>
 
-</div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</section>
+<br />
 
-<style>
-    .boton {
-        background-color: #61C2E2;
-        border-radius: .2em;
-        border-color: #61C2E2
+<h2>Restaurantes de la ruta</h2>
+<hr />
+<section style="background-color: #E63946; display:flex; padding: 1em;">
+    @foreach (var itemrest in ViewData["Restaurantes"] as IEnumerable<WebAndayCome.Models.RestaurantViewModel>)
+    {
+
+
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <article>
+                <a href="/Restaurant/Details/@itemrest.Id">
+                    <h3 title="@itemrest.Name">@itemrest.Name </h3>
+                    <img height="140" alt="foto de restaurante" src="@itemrest.Photo" />
+                    <br />
+                </a>
+            </article>
+        </div>
+
+
     }
+</section>
+<hr />
 
-        .boton:hover {
-            background-color: #61DBE2;
+    @if (Session["Usuario"] != null)
+    {
+        Html.RenderAction("_Valorar", "Routes");
+        Html.RenderAction("_Comment", "Routes");
+    }
+    @{Html.RenderAction("_PorRuta", "Comment", new { Model.Id });}
+
+
+    <p>
+        @Html.ActionLink("Volver", "Index", new { @class = "otros" })
+    </p>
+
+
+    <style>
+        .boton {
+            background-color: #61C2E2;
+            border-radius: .2em;
+            border-color: #61C2E2
         }
 
-    .crear {
-        color: #61C2E2;
-    }
+            .boton:hover {
+                background-color: #61DBE2;
+            }
 
-        .crear:hover {
-            color: #61DBE2;
+        .crear {
+            color: #61C2E2;
         }
 
-    .otros {
-        color: #A8DADC;
-    }
+            .crear:hover {
+                color: #61DBE2;
+            }
 
-        .otros:hover {
-            color: #CEDADC;
+        .otros {
+            color: #A8DADC;
         }
 
-    .row {
-        background-color: #457B9D;
-        border-radius: .5em;
-    }
+            .otros:hover {
+                color: #CEDADC;
+            }
 
-    .img {
-        height: 140px;
-        margin: .3em
-    }
-
-        .img:hover {
-            transform: scale(1.15);
+        .row {
+            background-color: #457B9D;
+            border-radius: .5em;
         }
 
-    h3, p {
-        text-align: left;
-        padding: 1em;
-        margin: 0;
-    }
+        .img {
+            height: 140px;
+            margin: .3em
+        }
 
-    h3 {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        color: black;
-    }
+            .img:hover {
+                transform: scale(1.15);
+            }
 
-    p {
-        padding: .5em 0 0 0;
-        color: #F1FAEE;
-    }
+        h3, p {
+            text-align: left;
+            padding: 1em;
+            margin: 0;
+        }
 
-    hr {
-        display: block;
-        height: 1px;
-        border: 0;
-        border-top: 1px solid #ccc;
-        margin: 1em 0;
-        padding: 0;
-    }
-</style>
+        h3 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: black;
+        }
+
+        p {
+            padding: .5em 0 0 0;
+            color: #F1FAEE;
+        }
+
+        hr {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 1px solid #ccc;
+            margin: 1em 0;
+            padding: 0;
+        }
+        section {
+            border-radius: .5em;
+        }
+    </style>
