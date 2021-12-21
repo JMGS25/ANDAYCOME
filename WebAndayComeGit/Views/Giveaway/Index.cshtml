@@ -2,57 +2,130 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.csHtml";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Clientes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Premio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Winner)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Precio)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Premium)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Clientes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Premio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Winner)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Precio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Premium)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+<h2>Sorteos!</h2>
+<hr />
+@if (ViewData["admin"] != null)
+{
+    if (ViewData["admin"].Equals("true"))
+    {
+        <button class="boton">
+            @Html.ActionLink("Crear", "Create", "Giveaway", htmlAttributes: new { style = "color: #1D3557" })
+        </button>
+    }
 }
 
-</table>
+
+@foreach (var item in Model)
+{
+    <table class="table">
+        <tr>
+            <th class="thfirst">
+                Número de participantes
+            </th>
+            <td class="tdfirst">
+                @Html.DisplayFor(modelItem => item.Clientes)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Premio)
+            </th>
+            <td>
+                @Html.DisplayFor(modelitem => item.Premio)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Winner)
+            </th>
+            <td>
+                @Html.DisplayFor(modelitem => item.Winner)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <td>
+                @Html.DisplayFor(modelitem => item.Precio)
+            </td>
+        </tr>
+        <tr>
+            <th class="thlast">
+                @Html.DisplayNameFor(model => model.Premium)
+            </th>
+            <td class="tdlast">
+                @Html.DisplayFor(modelitem => item.Premium)
+            </td>
+        </tr>
+        <tr>
+            <td class="det">
+                @if (ViewData["admin"] != null)
+                {
+                    if (ViewData["admin"].Equals("true"))
+                    {
+                        using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="hidden" name="idsorteo" id="idsorteo" value=@item.Id class="btn btn-default" />pasamos de manera oculta el id
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="terminar sorteo" class="btn btn-default" />
+                                </div>
+                            </div>
+                        }
+                        @Html.ActionLink("Editar", "edit", new { id = item.Id });
+                    }
+                }
+                |
+                @Html.ActionLink("Detalles", "details", new { id = item.Id })
+            </td>
+        </tr>
+    </table>
+
+}
+
+<style>
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+    th {
+        background-color: #457B9D;
+        color: white;
+    }
+      
+    td {
+        background-color: #A8DADC;
+    }
+    .det {
+        background-color: #F1FAEE;
+    }
+    .thfirst{
+        border-radius: .5em 0 0 0;
+    }
+    .thlast {
+        border-radius: 0 0 0 .5em;
+    }
+
+    .tdfirst {
+        border-radius: 0 .5em 0 0;
+    }
+
+    .tdlast {
+        border-radius: 0 0 .5em 0;
+    }
+</style>
