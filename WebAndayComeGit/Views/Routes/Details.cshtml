@@ -5,66 +5,130 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Detalles de la ruta</h2>
 
 <div>
-    <h4>Detalles de la ruta</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+        <section style="background-color: #457B9D; display: flex; padding:1em;">
+            <div>
+                <img class="img" height="200" alt="foto de ruta" src="@Html.DisplayFor(model => model.Photo)" />
+            </div>
+            <div style="margin:1em; ">
+                <p><strong>@Html.DisplayFor(model => model.Name)</strong></p>
+                <p>@Html.DisplayFor(model => model.Creator)</p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                <p>@Html.DisplayFor(model => model.Description)</p>
+                <p>@Html.DisplayFor(model => model.Start_date) - @Html.DisplayFor(model => model.End_date)</p>
+                <br />
+                    <button class="boton">
+                        @Html.ActionLink("Participar", "AddClient", "Routes", htmlAttributes: new { style = "color: #1D3557" })
+                    </button>
+               
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Start_date)
-        </dt>
+        </section>
 
-        <dd>
-            @Html.DisplayFor(model => model.Start_date)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.End_date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.End_date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Photo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Photo)
-        </dd>
-
-    </dl>
-    @foreach (var item in ViewData["restaurantes"] as IEnumerable<WebAndayCome.Models.RestaurantViewModel>)
-    {
-        <a href="/Restaurant/Details/@item.Id">
-            <hr />
-            <h4>
-                @item.Name
-            </h4>
-            <img height="140" alt="foto de restaurante" src="@item.Photo" /><br />
-        </a>
-    }
+        <section>
+            @foreach (var itemrest in ViewData["restaurantes"] as IEnumerable<WebAndayCome.Models.RestaurantViewModel>
+        )
+            {
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <article>
+                        <a href="/Restaurant/Details/@itemrest.Id">
+                            <h3>
+                                @itemrest.Name
+                            </h3>
+                            <img height="140" alt="foto de restaurante" src="@itemrest.Photo" /><br />
+                        </a>
+                    </article>
+                </div>
+            }
+        </section>
+        <br />
+        <section style="display:block;">
+            <div>
+                @if (Session["Usuario"] != null)
+                {
+                    Html.RenderAction("_Valorar", "Routes");
+                    Html.RenderAction("_Comment", "Routes");
+                }
+                @{Html.RenderAction("_PorRuta", "Comment", new { Model.Id });}
+            </div>
+        </sectionstyle="display:block;">
 
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<style>
+    .boton {
+        background-color: #61C2E2;
+        border-radius: .2em;
+        border-color: #61C2E2
+    }
+
+        .boton:hover {
+            background-color: #61DBE2;
+        }
+
+    .crear {
+        color: #61C2E2;
+    }
+
+        .crear:hover {
+            color: #61DBE2;
+        }
+
+    .otros {
+        color: #A8DADC;
+    }
+
+        .otros:hover {
+            color: #CEDADC;
+        }
+
+    .row {
+        background-color: #457B9D;
+        border-radius: .5em;
+    }
+
+    .img {
+        height: 140px;
+        margin: .3em
+    }
+
+        .img:hover {
+            transform: scale(1.15);
+        }
+
+    h3, p {
+        text-align: left;
+        padding: 1em;
+        margin: 0;
+    }
+
+    h3 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: black;
+    }
+
+    p {
+        padding: .5em 0 0 0;
+        color: #F1FAEE;
+    }
+
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+</style>
