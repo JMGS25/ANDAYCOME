@@ -1,4 +1,5 @@
 ﻿@model WebAndayCome.Models.RutasViewModel
+    @using AndayComeGenNHibernate.EN.AndayCome;
 
 @{
     ViewBag.Title = "Details";
@@ -20,7 +21,7 @@
         <p>@Html.DisplayFor(model => model.Start_date) - @Html.DisplayFor(model => model.End_date)</p>
         <br />
         <button class="boton">
-            @Html.ActionLink("Participar", "AddClient", "Routes", htmlAttributes: new { style = "color: #1D3557" })
+            @Html.ActionLink("Participar", "AddClient", "Routes", new { Model.Id }, htmlAttributes: new { style = "color: #1D3557" })
         </button>
     </div>
 
@@ -68,59 +69,47 @@
             border-radius: .2em;
             border-color: #61C2E2
         }
-
             .boton:hover {
                 background-color: #61DBE2;
             }
-
         .crear {
             color: #61C2E2;
         }
-
             .crear:hover {
                 color: #61DBE2;
             }
-
         .otros {
             color: #A8DADC;
         }
-
             .otros:hover {
                 color: #CEDADC;
             }
-
         .row {
             background-color: #457B9D;
             border-radius: .5em;
         }
-
         .img {
             height: 140px;
             margin: .3em
         }
-
             .img:hover {
                 transform: scale(1.15);
             }
-
         h3, p {
             text-align: left;
             padding: 1em;
             margin: 0;
         }
-
         h3 {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             color: black;
         }
-
         p {
             padding: .5em 0 0 0;
             color: #F1FAEE;
         }
-
         hr {
             display: block;
             height: 1px;
