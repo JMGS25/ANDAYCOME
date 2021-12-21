@@ -1,0 +1,115 @@
+﻿@model WebAndayCome.Models.RutasViewModel
+
+
+<h2>Valora la Ruta!</h2>
+
+
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+<section style="background-color: #457B9D; display: flex; padding: 1em;">
+    <div class="caja">
+        <div class="form-group">
+            <p>Valoracion</p>
+            <div class="col-md-2">
+                <input type="number" id="valoracion" name="valoracion" required min="1" max="5" step="1" placeholder="5" />
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="form-group">
+            <div class="col-md-2">
+                <input class="boton" type="submit" value="Enviar valoracion" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    </section>
+    }
+
+    <style>
+
+
+
+
+        .caja {
+            text-align: left;
+        }
+
+        .col-md-12 {
+            margin-bottom: 1em;
+            margin-top: 1em;
+        }
+
+
+        .boton {
+            background-color: #61C2E2;
+            border-radius: .2em;
+            border-color: #61C2E2
+        }
+
+            .boton:hover {
+                background-color: #61DBE2;
+            }
+
+        .crear {
+            color: #61C2E2;
+        }
+
+            .crear:hover {
+                color: #61DBE2;
+            }
+
+        .otros {
+            color: #A8DADC;
+        }
+
+            .otros:hover {
+                color: #CEDADC;
+            }
+
+        .row {
+            background-color: #457B9D;
+            border-radius: .5em;
+        }
+
+        .img {
+            height: 140px;
+            margin: .3em
+        }
+
+            .img:hover {
+                transform: scale(1.15);
+            }
+
+        h3, p {
+            text-align: left;
+            padding: 1em;
+            margin: 0;
+        }
+
+        h3 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: black;
+        }
+
+        p {
+            padding: .5em 0 0 0;
+            color: #F1FAEE;
+        }
+
+        hr {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 1px solid #ccc;
+            margin: 1em 0;
+            padding: 0;
+        }
+
+        section {
+            border-radius: .5em;
+        }
+    </style>
+

@@ -1,0 +1,102 @@
+﻿@model WebAndayCome.Models.RutasViewModel
+
+
+<h2>Comenta en la ruta!</h2>
+<hr />
+
+<section style="background-color: #E63946; display:flex; padding: 1em;">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            <div class="form-group">
+                <p>Valoracion</p>
+                <div class="col-md-10">
+                    <textarea id="texto" name="texto" rows="4" cols="50"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Sube tu comentario!" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+</section>
+
+<style>
+    .boton {
+        background-color: #61C2E2;
+        border-radius: .2em;
+        border-color: #61C2E2
+    }
+
+        .boton:hover {
+            background-color: #61DBE2;
+        }
+
+    .crear {
+        color: #61C2E2;
+    }
+
+        .crear:hover {
+            color: #61DBE2;
+        }
+
+    .otros {
+        color: #A8DADC;
+    }
+
+        .otros:hover {
+            color: #CEDADC;
+        }
+
+    .row {
+        background-color: #457B9D;
+        border-radius: .5em;
+    }
+
+    .img {
+        height: 140px;
+        margin: .3em
+    }
+
+        .img:hover {
+            transform: scale(1.15);
+        }
+
+    h3, p {
+        text-align: left;
+        padding: 1em;
+        margin: 0;
+    }
+
+    h3 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: black;
+    }
+
+    p {
+        padding: .5em 0 0 0;
+        color: #F1FAEE;
+    }
+
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    section {
+        border-radius: .5em;
+    }
+</style>
+
