@@ -1,23 +1,103 @@
 ﻿@model WebAndayCome.Models.TagViewModel
 
 @{
-    ViewBag.Title = "Restaurantes";
+    ViewBag.Title = "Tag: ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>
     @ViewBag.Title @Html.DisplayFor(model => model.Name)
 </h2>
+<hr />
 
 
+<section style="background-color: #457B9D; display: flex; padding:1em;">
+    @foreach (var item in ViewData["restaurantes"] as IEnumerable<WebAndayCome.Models.RestaurantViewModel>)
+    {
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <a href="/Restaurant/Details/@item.Id">
 
-@foreach (var item in ViewData["restaurantes"] as IEnumerable<WebAndayCome.Models.RestaurantViewModel>)
-{
-<a href="/Restaurant/Details/@item.Id">
-    <hr />
-    <h4>
-        @item.Name
-    </h4>
-    <img height="140" alt="foto de restaurante" src="@item.Photo" /><br />
-</a>
-}
+                <article>
+                    <h3 title="@item.Name"> @item.Name </h3>
+
+                    <img class="img" alt="foto de restaurante" src="@item.Photo" />
+                    <p>
+                        Dirección: @item.Street
+                    </p>
+                    <p>
+                        Capacidad del local: @item.Capacity
+                    </p>
+
+                </article>
+            </a>
+        </div>
+    }
+</section>
+
+<style>
+    a{
+        color: white;
+    }
+        a:hover{
+            color: #ccc;
+            text-decoration: none;
+        }
+    .boton {
+        background-color: #61C2E2;
+        border-radius: .2em;
+        border-color: #61C2E2
+    }
+
+        .boton:hover {
+            background-color: #61DBE2;
+        }
+
+    .otros {
+        color: #A8DADC;
+    }
+
+        .otros:hover {
+            color: #CEDADC;
+        }
+
+    .row {
+        background-color: #457B9D;
+        border-radius: .5em;
+    }
+
+    .img {
+        height: 140px;
+        margin: .3em
+    }
+
+        .img:hover {
+            transform: scale(1.15);
+        }
+
+    h3, p {
+        text-align: left;
+        padding: 1em;
+        margin: 0;
+    }
+
+    h3 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: black;
+    }
+
+    p {
+        padding: .5em 0 0 0;
+        color: #F1FAEE;
+    }
+
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+</style>
