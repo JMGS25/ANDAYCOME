@@ -1,7 +1,7 @@
 ﻿@model WebAndayCome.Models.RutasViewModel
 
 
-<h2>Comenta en la ruta!</h2>
+<h2>Comenta</h2>
 <hr />
 
 <section style="background-color: #E63946; display:flex; padding: 1em;">
@@ -10,16 +10,16 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <hr />
+           
             <div class="form-group">
-                <div class="col-md-10">
-                    <textarea id="texto" name="texto" rows="4" cols="50"></textarea>
+                <div class=" col-md-10">
+                    <textarea id="texto" name="texto" rows="4" cols="200"></textarea>
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Sube tu comentario!" class="btn btn-default" />
+                <div class=" col-md-10">
+                    <input type="submit" value="Enviar" class="boton" />
                 </div>
             </div>
         </div>
@@ -27,6 +27,12 @@
 </section>
 
 <style>
+   textarea{
+       width:100%;
+       max-width:100%;
+       max-height:100%;
+
+   }
     .boton {
         background-color: #61C2E2;
         border-radius: .2em;
