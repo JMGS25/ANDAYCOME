@@ -5,11 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Tags disponibles</h2>
+<hr />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -24,9 +22,32 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.ActionLink("Restaurantes", "Details", new {  id=item.Name  }) |  
+            @Html.ActionLink("Restaurantes", "Details", new {  id=item.Name  })  
         </td>
     </tr>
 }
 
 </table>
+
+
+
+<style>
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    th {
+        background-color: #457B9D;
+        color: white;
+    }
+
+    td {
+        background-color: #A8DADC;
+    }
+
+</style>
