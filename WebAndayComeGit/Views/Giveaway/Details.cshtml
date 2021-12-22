@@ -1,0 +1,144 @@
+﻿@model WebAndayCome.Models.GiveawayViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalles del sorteo</h2>
+<hr />
+<table class="table">
+
+    <tr >
+        <th class="thfirst">
+            @Html.DisplayNameFor(model => model.Clientes)
+        </th>
+
+        <td class="tdfirst">
+            @Html.DisplayFor(model => model.Clientes)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Premio)
+        </th>
+
+        <td>
+            @Html.DisplayFor(model => model.Premio)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Winner)
+        </th>
+
+        <td>
+            @Html.DisplayFor(model => model.Winner)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio)
+        </th>
+
+        <td>
+            @Html.DisplayFor(model => model.Precio)
+        </td>
+    </tr>
+    <tr>
+        <th class="thlast">
+            @Html.DisplayNameFor(model => model.Premium)
+        </th>
+
+        <td class="tdlast">
+            @Html.DisplayFor(model => model.Premium)
+        </td>
+    </tr>
+
+</table>
+
+<br>
+<br>
+
+<p>¿Quieres participar en este sorteo?</p>
+@using (Html.BeginForm())
+{
+    <p>@ViewData["participa"]</p>
+    if (Session["Usuario"] != null)
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Participar" class="boton" />
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Participar" class="botonDIS" disabled />
+            </div>
+        </div>
+    }
+
+}
+
+
+
+<p>
+    @Html.ActionLink("Volver", "Index")
+</p>
+
+
+<style>
+    .boton {
+        background-color: #61C2E2;
+        border-radius: .2em;
+        border-color: #61C2E2
+    }
+
+        .boton:hover {
+            background-color: #61DBE2;
+        }
+
+    .botonDIS {
+        background-color: #ccc;
+        border-radius: .2em;
+        border-color: #808080
+    }
+
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    th {
+        background-color: #457B9D;
+        color: white;
+    }
+
+    td {
+        background-color: #A8DADC;
+    }
+    .thfirst {
+        border-radius: .5em 0 0 0;
+    }
+
+    .thlast {
+        border-radius: 0 0 0 .5em;
+    }
+
+    .tdfirst {
+        border-radius: 0 .5em 0 0;
+    }
+
+    .tdlast {
+        border-radius: 0 0 .5em 0;
+    }
+</style>
