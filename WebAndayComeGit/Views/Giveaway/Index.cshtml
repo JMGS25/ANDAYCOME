@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.csHtml";
 }
 
-<h2>Sorteos!</h2>
+<h2>Sorteos</h2>
 <hr />
 @if (ViewData["admin"] != null)
 {
@@ -73,7 +73,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
-                                    <input type="hidden" name="idsorteo" id="idsorteo" value=@item.Id class="btn btn-default" />pasamos de manera oculta el id
+                                    <input type="hidden" name="idsorteo" id="idsorteo" value=@item.Id class="btn btn-default" />
                                 </div>
                             </div>
 
@@ -103,20 +103,24 @@
         margin: 1em 0;
         padding: 0;
     }
+
     th {
         background-color: #457B9D;
         color: white;
     }
-      
+
     td {
         background-color: #A8DADC;
     }
+
     .det {
         background-color: #F1FAEE;
     }
-    .thfirst{
+
+    .thfirst {
         border-radius: .5em 0 0 0;
     }
+
     .thlast {
         border-radius: 0 0 0 .5em;
     }
