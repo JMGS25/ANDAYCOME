@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@@using Microsoft.AspNet.Identity
 @using AndayComeGenNHibernate.EN.AndayCome;
 @{
     ClientEN cli = new ClientEN();
@@ -10,11 +10,13 @@
         if (Object.ReferenceEquals(Session["Usuario"].GetType(), cli.GetType()))
         {
             nombreusu = 0;
-        }else if(Object.ReferenceEquals(Session["Usuario"].GetType(), ad.GetType()))
+        }
+        else if (Object.ReferenceEquals(Session["Usuario"].GetType(), ad.GetType()))
         {
             nombreusu = 3;
         }
-    }else
+    }
+    else
     {
         nombreusu = 2;
     }
@@ -34,63 +36,63 @@
 <body style="background-color: #F1FAEE;">
     <div class="navbar navbar-dark navbar-fixed-top" style="background-color: #A8DADC;">
         <div class="container">
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse">
                 @Html.Partial("_LoginPartial")
             </div>
 
-            <img src="~/Images/andaYcome_LOGO.png" style="height:5%; width:5%; margin-bottom:6%; margin-right:5px;" alt="..." />
-            <div style="display: inline-block; margin-right: 45%;">
-                <span style="margin-top: 13px; font-size: 22px;" class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>
-                @Html.ActionLink("Anda&Come", "Index", "Home", new { area = "" }, new { style = "font-size:35px; color: #1D3557", @class = "navbar-brand" })
+            <img src="~/Images/andaYcome_LOGO.png" style="height:4%; width:4%; margin-bottom:6%; margin-right:5px;" alt="..." />
+            <div style="display: inline-block;">
+                @Html.ActionLink("Anda&Come", "Index", "Home", new { area = "" }, new { style = "font-size:30px; color: #1D3557; font-family:Arial; text-decoration:none;"})
                 <br />
                 <strong style="font-size:14px; color: #1D3557">Toda una travesía gastronómica</strong>
             </div>
             <!--
-            <div style="display: inline-block;">
-                <form action="" method="post" target="_blank">
-                    <p style="text-align:right; margin-top: 20px;">
-                        <input type="search" name="busquedacodigo" placeholder=" Buscar..." size="30" maxlength="30" style="border-radius: 15px; padding-left:10px; padding-right:10px;">
-                        <button type="submit" style="background:none; border: none;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                            </svg>
-                        </button>
-                    </p>
-                </form>
-            </div>
-            -->
+        <div style="display: inline-block;">
+            <form action="" method="post" target="_blank">
+                <p style="text-align:right; margin-top: 20px;">
+                    <input type="search" name="busquedacodigo" placeholder=" Buscar..." size="30" maxlength="30" style="border-radius: 15px; padding-left:10px; padding-right:10px;">
+                    <button type="submit" style="background:none; border: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                        </svg>
+                    </button>
+                </p>
+            </form>
         </div>
-    </div>
+        -->
+        </div>
+        <div class="navbar navbar-dark" style="background-color: #E63946; margin-bottom:0;">
+            <div class="container">
+                <div>
+                    <ul class="col-sm-4 col-md-7 col-lg-12 nav navbar-nav">
+                        <li>@Html.ActionLink("Inicio", "Index", "Home", null, new { id = "OT", style = "color: #1D3557; font-weight: bold;" })</li>
+                        <li>@Html.ActionLink("Rutas", "Index", "Routes", null, new { id = "OT", style = "color: #1D3557" })</li>
+                        <li>@Html.ActionLink("Restaurantes", "Index", "Restaurant", null, new { id = "OT", style = "color: #1D3557" })</li>
+                        <li>@Html.ActionLink("Tags", "Index", "Tag", null, new { id = "OT", style = "color: #1D3557" })</li>
+                        @{
+                            if (nombreusu == 0)
+                            {
+                                <li>@Html.ActionLink("Tickets", "Canjear", "Client", null, new { id = "OT", style = "color: #1D3557" })</li>
+                                <li>@Html.ActionLink("Sorteos", "Index", "Giveaway", null, new { id = "OT", style = "color: #1D3557" })</li>
 
-    <div class="navbar navbar-dark" style="background-color: #E63946; margin-top: 117px;">
-        <div class="container">
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home", null, new { id = "OT", style = "color: #1D3557; font-weight: bold;" })</li>
-                    <li>@Html.ActionLink("Rutas", "Index", "Routes", null, new { id = "OT", style = "color: #1D3557" })</li>
-                    <li>@Html.ActionLink("Restaurantes", "Index", "Restaurant", null, new { id = "OT", style = "color: #1D3557" })</li>
-                    <li>@Html.ActionLink("Tags", "Index", "Tag", null, new { id = "OT", style = "color: #1D3557" })</li>
-                    @{ if (nombreusu == 0)
-                        {
-                            <li>@Html.ActionLink("Tickets", "Canjear", "Client", null, new { id = "OT", style = "color: #1D3557" })</li>
-                            <li>@Html.ActionLink("Sorteos", "Index", "Giveaway", null, new { id = "OT", style = "color: #1D3557" })</li>
-
+                            }
+                            else if (nombreusu == 3)
+                            {
+                                <li>@Html.ActionLink("Sorteos", "Index", "Giveaway", null, new { id = "OT", style = "color: #1D3557" })</li>
+                            }
                         }
-                        else if (nombreusu == 3)
-                        {
-                            <li>@Html.ActionLink("Sorteos", "Index", "Giveaway", null, new { id = "OT", style = "color: #1D3557" })</li>
-}
-                    }
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home", null, new { id = "OT", style = "color: #1D3557" })</li>
-                </ul>
+                        <li>@Html.ActionLink("Contacto", "Contact", "Home", null, new { id = "OT", style = "color: #1D3557" })</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="container body-content">
+    <div style="margin-top: 15em;" class="container body-content">
         @RenderBody()
         <hr />
     </div>
+
     <div style="background-color: #A8DADC; color: #1D3557; padding-top:20px; padding-bottom:10px;">
         <footer class="container body-content">
             <div style="display:inline-block;">
@@ -111,14 +113,15 @@
                 </svg>
                     -->
             </div>
-            @{ if (nombreusu==2) { 
-                        <div style="display:inline-block; margin-left: 40%; margin-right:29%;">
-                            <button class="btn btn-default" style="background-color:#FFC75F">
-                                @Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", style = "color: #1D3557" })
-                            </button>
-                        </div>
+            @{ if (nombreusu == 2)
+                {
+                    <div style="display:inline-block; margin-left: 40%; margin-right:29%;">
+                        <button class="btn btn-default" style="background-color:#FFC75F">
+                            @Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", style = "color: #1D3557" })
+                        </button>
+                    </div>
                 } }
-            
+
             <div style="display: inline-block; margin-left:1%">
                 &copy; @DateTime.Now.Year - Anda&Come ASP.NET
             </div>
