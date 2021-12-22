@@ -2,6 +2,7 @@
 @using AndayComeGenNHibernate.EN.AndayCome;
 @{
     ClientEN cli = new ClientEN();
+    AdminEN ad = new AdminEN();
 
     int nombreusu = 1;
     if (Session["Usuario"] != null)
@@ -9,7 +10,13 @@
         if (Object.ReferenceEquals(Session["Usuario"].GetType(), cli.GetType()))
         {
             nombreusu = 0;
+        }else if(Object.ReferenceEquals(Session["Usuario"].GetType(), ad.GetType()))
+        {
+            nombreusu = 3;
         }
+    }else
+    {
+        nombreusu = 2;
     }
 }
 
@@ -60,13 +67,20 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Inicio", "Index", "Home", null, new { id = "OT", style = "color: #1D3557; font-weight: bold;" })</li>
+                    <li>@Html.ActionLink("Rutas", "Index", "Routes", null, new { id = "OT", style = "color: #1D3557" })</li>
+                    <li>@Html.ActionLink("Restaurantes", "Index", "Restaurant", null, new { id = "OT", style = "color: #1D3557" })</li>
+                    <li>@Html.ActionLink("Tags", "Index", "Tag", null, new { id = "OT", style = "color: #1D3557" })</li>
                     @{ if (nombreusu == 0)
                         {
-                            <li>@Html.ActionLink("Rutas", "Index", "Routes", null, new { id = "OT", style = "color: #1D3557" })</li>
                             <li>@Html.ActionLink("Tickets", "Canjear", "Client", null, new { id = "OT", style = "color: #1D3557" })</li>
                             <li>@Html.ActionLink("Sorteos", "Index", "Giveaway", null, new { id = "OT", style = "color: #1D3557" })</li>
 
-                        }}
+                        }
+                        else if (nombreusu == 3)
+                        {
+                            <li>@Html.ActionLink("Sorteos", "Index", "Giveaway", null, new { id = "OT", style = "color: #1D3557" })</li>
+}
+                    }
                     <li>@Html.ActionLink("Contacto", "Contact", "Home", null, new { id = "OT", style = "color: #1D3557" })</li>
                 </ul>
             </div>
@@ -97,12 +111,15 @@
                 </svg>
                     -->
             </div>
-            <div style="display:inline-block; margin-left: 40%; margin-right:29%;">
-                <button class="btn btn-default" style="background-color:#FFC75F">
-                    @Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", style = "color: #1D3557" })</li>
-                </button>
-            </div>
-            <div style="display: inline-block;">
+            @{ if (nombreusu==2) { 
+                        <div style="display:inline-block; margin-left: 40%; margin-right:29%;">
+                            <button class="btn btn-default" style="background-color:#FFC75F">
+                                @Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", style = "color: #1D3557" })
+                            </button>
+                        </div>
+                } }
+            
+            <div style="display: inline-block; margin-left:1%">
                 &copy; @DateTime.Now.Year - Anda&Come ASP.NET
             </div>
         </footer>
